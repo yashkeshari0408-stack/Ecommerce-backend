@@ -17,6 +17,7 @@ const USchema= new mongoose.Schema(
     },
     password: {
       type: String,
+      minlength:6,
       required: true
     },
     role: {
@@ -24,8 +25,9 @@ const USchema= new mongoose.Schema(
       enum: ["admin", "customer"],
       default: "customer"
     }
-  }
-
+    
+  }, { timestamps: true }
+  
 );
 
 module.exports=mongoose.model("User",USchema);
