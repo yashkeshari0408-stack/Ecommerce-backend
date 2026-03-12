@@ -17,9 +17,9 @@ const PSchema = new mongoose.Schema(
              type: Number,
               required: true,
                min: 0 },
-        timestamps: true
-    }
-
+       
+    },
+    { timestamps: true}
 )
 
 module.exports=mongoose.model("Product",PSchema);
