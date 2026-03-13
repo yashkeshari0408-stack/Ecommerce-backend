@@ -8,9 +8,19 @@ const OSchema = new mongoose.Schema(
         },
         items: [
             {
-                product: ObjectId.ref.Product,
-                quantity: Number
-                , price: Number
+                product: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'Product',
+                    required: true
+                },
+                quantity: {
+                    type: Number,
+                    required: true
+                },
+                price: {
+                    type: Number,
+                    required: true
+                }
             }
         ],
 
@@ -23,9 +33,10 @@ const OSchema = new mongoose.Schema(
             enum: ['pending', 'confirmed'],
             default: 'pending'
         },
-        timestamps: true
 
-    }
+
+    },
+    { timestamps: true }
 )
 
-module.exports=mongoose.model("Order",OSchema);
+module.exports = mongoose.model("Order", OSchema);
