@@ -75,6 +75,34 @@ Authorization: Bearer <token>
   ]
 }
 
+### WORKFLOW
+
+Client (Postman / Swagger)
+          ↓
+    Express Server
+          ↓
+    ┌─────────────────────────┐
+    │ Routes                  │
+    │ auth / product / order  │
+    └─────────┬───────────────┘
+              ↓
+    ┌─────────────────────────┐
+    │ Middleware              │
+    │ auth / role / error     │
+    └─────────┬───────────────┘
+              ↓
+    ┌─────────────────────────┐
+    │ Controllers             │
+    │ auth / product / order  │
+    └─────────┬───────────────┘
+              ↓
+    ┌─────────────────────────┐
+    │ Models                  │
+    │ User / Product / Order  │
+    └─────────┬───────────────┘
+              ↓
+         MongoDB Atlas
+         
 ## Git Branching Strategy
 - main → production ready code
 - developer → integration branch
