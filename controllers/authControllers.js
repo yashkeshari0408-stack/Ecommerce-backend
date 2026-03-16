@@ -12,7 +12,9 @@ exports.signup = async (req, res) => {
     if (!name ||!email || !password) {
       return error(res, 'Name,Email and password are required', 400);
     }
-
+    if (role && !['admin', 'customer'].includes(role)) {
+  return error(res, 'Invalid role', 400);
+}
     
     const existingUser = await User.findOne({ email });
     if (existingUser) {
