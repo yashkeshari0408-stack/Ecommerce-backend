@@ -6,23 +6,26 @@ const { success, error } = require('../utils/response');
 
 exports.signup = async (req, res) => {
   try {
-    const { name,email, password, role } = req.body;
+    const { name, email, password, role } = req.body;
 
-  
-    if (!name ||!email || !password) {
+
+    if (!name || !email || !password) {
       return error(res, 'Name,Email and password are required', 400);
     }
 
-    
+    const validRoles = ['customer', 'admin'];
+    if (role && !validRoles.includes(role)) {
+      return error(res, 'Invalid role', 400);
+    }
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return error(res, 'User already exists', 409);
     }
 
-   
+
     const hashedPassword = await bcrypt.hash(password, 10); //hashing
 
-  
+
     const user = new User({
       name,
       email,
@@ -45,7 +48,7 @@ exports.signup = async (req, res) => {
         token,
         user: {
           id: user._id,
-          name:user.name,
+          name: user.name,
           email: user.email,
           role: user.role
         }
@@ -65,7 +68,7 @@ exports.login = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-   
+
     if (!email || !password) {
       return error(res, 'Email and password are required', 400);
     }
@@ -76,7 +79,7 @@ exports.login = async (req, res) => {
       return error(res, 'User not found', 404);
     }
 
-    
+
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return error(res, 'Invalid credentials', 401);
@@ -96,7 +99,7 @@ exports.login = async (req, res) => {
         token,
         user: {
           id: user._id,
-          name:user.name,
+          name: user.name,
           email: user.email,
           role: user.role
         }
