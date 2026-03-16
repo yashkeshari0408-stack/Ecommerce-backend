@@ -102,7 +102,7 @@ Client (Postman / Swagger)
     └─────────┬───────────────┘
               ↓
          MongoDB Atlas
-                
+
 ## Git Branching Strategy
 - main → production ready code
 - developer → integration branch
