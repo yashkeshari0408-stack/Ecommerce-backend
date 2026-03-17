@@ -23,11 +23,12 @@ npm install
 
 3. Create .env file in root
 PORT=5000
-MONGO_URI=your_mongodb_connection_string
+MONGO_URL=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 
 4. Run the server
 npm run dev
+
 
 ## API Documentation
 Swagger docs available at:
@@ -103,7 +104,18 @@ Client (Postman / Swagger)
               ↓
          MongoDB Atlas
          
-## Git Branching Strategy
-- main → production ready code
-- developer → integration branch
-- feature/* → individual features
+## Running Tests
+npm test
+
+## Docker
+Build image:
+docker build -t ecommerce-backend .
+
+Run container:
+docker run -p 5000:5000 --env-file .env ecommerce-backend
+
+
+## CI/CD
+GitHub Actions pipeline runs automatically on push to main and cdeveloper branches:
+- Runs all tests
+- Builds Docker image if tests pass
