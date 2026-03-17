@@ -7,6 +7,11 @@ const swaggerSpec = require('./docs/swaggerConfig');
 const app = express();
 
 app.use(express.json());
+
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'API is running' });
+});
+
 app.use('/auth', require('./routes/authRoutes'));
 
 app.use('/products', require('./routes/productRoutes'));
